@@ -1,0 +1,2 @@
+pyserial-asyncio-fast==0.14
+pytest-asyncio==0.25.3

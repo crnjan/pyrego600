@@ -1,0 +1,2 @@
+class RegoError(Exception):
+    pass

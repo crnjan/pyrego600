@@ -1,0 +1,29 @@
+[project]
+name = "pyrego600"
+version = "0.0.1"
+authors = [
+  { name="Boris Krivonog", email="boris.krivonog@inova.si" },
+]
+description = "A small example package"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = ["pyserial-asyncio-fast==0.14"]
+license = { file = "LICENSE" }
+
+[project.urls]
+Homepage = "https://github.com/crnjan/pyrego600"
+Issues = "https://github.com/crnjan/pyrego600/issues"
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-asyncio", "ruff"]
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "module"
+pythonpath = "src"
+
+[tool.ruff]
+line-length = 120
