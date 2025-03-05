@@ -73,6 +73,8 @@ def test_settings_heat_curve():
     assert command.payload == b"\x81\x03\x00\x00\x00\x00\x00\x1b\x1b"
     assert command.decoder.decode(b"\x01") == 0
     assert command.transformation.toValue(0) == 0
+    assert str(register.identifier) == "settings.heat_curve"
+    assert register.is_writtable
 
 
 def test_front_panel_power_lamp():
@@ -83,6 +85,7 @@ def test_front_panel_power_lamp():
         expectedDecodedValue=1,
         expectedValue=1,
     )
+    assert not register.is_writtable
     with pytest.raises(TypeError):
         register._write(0)
 

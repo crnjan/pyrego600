@@ -7,3 +7,6 @@ from .group import Group
 class Identifier:
     id: str
     group: Group
+
+    def __str__(self):
+        return f"{self.group.value}.{self.id}"

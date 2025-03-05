@@ -18,6 +18,7 @@ _RETRIES: int = 3
 class HeatPump:
     def __init__(self, connection: Connection) -> None:
         self.__connection = connection
+        self.__lock = asyncio.Lock()
 
     @property
     def registers(self) -> list[Register]:
@@ -30,18 +31,21 @@ class HeatPump:
     async def verify(self, retry: int = _RETRIES) -> None:
         _LOGGER.debug("Reading Rego device version...")
         register = RegisterRepository.version()
-        version = await self.__send(*register._read(), retry)
-        if version != 600:
-            await self.__connection.close()
-            raise RegoError(f"Invalid rego version received {version}")
-        _LOGGER.debug(f"Connected to Rego version {version}.")
+        async with self.__lock:
+            version = await self.__send(*register._read(), retry)
+            if version != 600:
+                await self.__connection.close()
+                raise RegoError(f"Invalid rego version received {version}")
+        _LOGGER.debug("Connected to Rego version %s.", version)
 
     async def read(self, register: Register, retry: int = _RETRIES) -> float:
-        return await self.__send(*register._read(), retry)
+        async with self.__lock:
+            return await self.__send(*register._read(), retry)
 
     async def write(self, register: Register, value: float, retry: int = _RETRIES) -> None:
         transformed = register.transformation.fromValue(value)
-        return await self.__send(*register._write(round(transformed)), retry)
+        async with self.__lock:
+            return await self.__send(*register._write(round(transformed)), retry)
 
     async def __send(self, payload: bytes, decoder: Decoder, transformation: Transformation, retry: int) -> float:
         try:
@@ -55,18 +59,18 @@ class HeatPump:
             await asyncio.sleep(0.05)
 
             async with asyncio_timeout(2):
-                _LOGGER.debug(f"Sending '{payload.hex()}'")
+                _LOGGER.debug("Sending '%s'", payload.hex())
                 await self.__connection.write(payload)
                 _LOGGER.debug("Send, waiting for response...")
                 response = await self.__connection.read(decoder.length)
-                _LOGGER.debug(f"Received {response.hex()}")
+                _LOGGER.debug("Received %s", response.hex())
             return transformation.toValue(decoder.decode(response))
 
         except (OSError, RegoError) as e:
-            _LOGGER.debug(f"Sending '{payload.hex()}' failed due {e!r}")
+            _LOGGER.debug("Sending '%s' failed due %s", payload.hex(), repr({e}))
             await self.__connection.close()
             if retry > 0:
-                _LOGGER.debug(f"Retrying, {retry=}")
+                _LOGGER.debug("Retrying, retry=%d", retry)
                 await asyncio.sleep(0.2)
                 return await self.__send(payload, decoder, transformation, retry - 1)
             raise

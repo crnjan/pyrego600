@@ -41,7 +41,7 @@ class RegisterFactory:
         )
 
     @staticmethod
-    def systemTemperature(identifier: Identifier, address: int) -> Register:
+    def systemTemperature(identifier: Identifier, address: int, is_writtable: bool = False) -> Register:
         return Register(
             identifier=identifier,
             source=Sources.SYSTEM,
@@ -49,6 +49,19 @@ class RegisterFactory:
             decoder=Decoders.INT_16,
             transformation=Transformations.NUMERIC_ONE_TENTH,
             type=Type.TEMPERATURE,
+            is_writtable=is_writtable,
+        )
+
+    @staticmethod
+    def systemUnitless(identifier: Identifier, address: int, is_writtable: bool = False) -> Register:
+        return Register(
+            identifier=identifier,
+            source=Sources.SYSTEM,
+            address=address,
+            decoder=Decoders.INT_16,
+            transformation=Transformations.NUMERIC_ONE_TENTH,
+            type=Type.UNITLESS,
+            is_writtable=is_writtable,
         )
 
     @staticmethod

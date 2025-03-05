@@ -18,6 +18,7 @@ class Register:
     decoder: Decoder
     transformation: Transformation
     type: Type
+    is_writtable: bool = False
 
     class Command(NamedTuple):
         payload: bytes

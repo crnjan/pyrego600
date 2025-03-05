@@ -140,48 +140,71 @@ class RegisterRepository:
                 address=0x0206,
             ),
             # System registers, settings
-            # TODO: unitless
-            RegisterFactory.systemTemperature(
-                identifier=Identifiers.SETTINGS_HEAT_CURVE,
-                address=0x0000,
+            RegisterFactory.systemUnitless(
+                identifier=Identifiers.SETTINGS_HEAT_CURVE, address=0x0000, is_writtable=True
             ),
             RegisterFactory.systemTemperature(
-                identifier=Identifiers.SETTINGS_HEAT_CURVE_FINE_ADJ,
-                address=0x0001,
+                identifier=Identifiers.SETTINGS_HEAT_CURVE_FINE_ADJ, address=0x0001, is_writtable=True
             ),
             RegisterFactory.systemTemperature(
-                identifier=Identifiers.SETTINGS_HEAT_CURVE_COUPLING_DIFF,
-                address=0x0002,
+                identifier=Identifiers.SETTINGS_HEAT_CURVE_COUPLING_DIFF, address=0x0002, is_writtable=True
             ),
-            # TODO: unitless
-            RegisterFactory.systemTemperature(
-                identifier=Identifiers.SETTINGS_HEAT_CURVE_2,
-                address=0x0003,
+            RegisterFactory.systemUnitless(
+                identifier=Identifiers.SETTINGS_HEAT_CURVE_2, address=0x0003, is_writtable=True
             ),
             RegisterFactory.systemTemperature(
-                identifier=Identifiers.SETTINGS_HEAT_CURVE_2_FINE_ADJ,
-                address=0x0004,
+                identifier=Identifiers.SETTINGS_HEAT_CURVE_2_FINE_ADJ, address=0x0004, is_writtable=True
             ),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_20, address=0x001E),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_15, address=0x001C),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_10, address=0x001A),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_5, address=0x0018),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_0, address=0x0016),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_5, address=0x0014),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_10, address=0x0012),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_15, address=0x0010),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_20, address=0x000E),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_25, address=0x000C),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_30, address=0x000A),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_35, address=0x0008),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_INDOOR_TEMP_SETTING, address=0x0021),
-            # TODO: unitless
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_CURVE_INFL_BY_IN_TEMP, address=0x0022),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_SUMMER_DISCONNECTION, address=0x0024),
-            RegisterFactory.systemTemperature(identifier=Identifiers.SETTINGS_HOTWATER_TARGET, address=0x002B),
             RegisterFactory.systemTemperature(
-                identifier=Identifiers.SETTINGS_HOTWATER_TARGET_HYSTERESIS,
-                address=0x002C,
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_20, address=0x001E, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_15, address=0x001C, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_10, address=0x001A, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_5, address=0x0018, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_0, address=0x0016, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_5, address=0x0014, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_10, address=0x0012, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_15, address=0x0010, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_20, address=0x000E, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_25, address=0x000C, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_30, address=0x000A, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_ADJ_CURVE_AT_MINUS_35, address=0x0008, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_INDOOR_TEMP_SETTING, address=0x0021, is_writtable=True
+            ),
+            RegisterFactory.systemUnitless(
+                identifier=Identifiers.SETTINGS_CURVE_INFL_BY_IN_TEMP, address=0x0022, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_SUMMER_DISCONNECTION, address=0x0024, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_HOTWATER_TARGET, address=0x002B, is_writtable=True
+            ),
+            RegisterFactory.systemTemperature(
+                identifier=Identifiers.SETTINGS_HOTWATER_TARGET_HYSTERESIS, address=0x002C, is_writtable=True
             ),
             # System registers, operating times
             RegisterFactory.systemHours(identifier=Identifiers.OPERATING_TIMES_HP_IN_OPERATION_RAD, address=0x0048),
