@@ -9,4 +9,4 @@ class Identifier:
     group: Group
 
     def __str__(self):
-        return f"{self.group.value}.{self.id}"
+        return f"{self.group.value}-{self.id}"

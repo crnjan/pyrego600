@@ -34,10 +34,10 @@ class Identifiers:
     CONTROL_DATA_RADIATOR_FORWARD_TARGET = Identifier(id="radiator_forward_target", group=Group.CONTROL_DATA)
     CONTROL_DATA_ADDHEAT_POWER_PERCENT = Identifier(id="add_heat_power_percent", group=Group.CONTROL_DATA)
     # System registers, device values
-    DEVICE_VALUES_COLD_FLUID_PUMP = Identifier(id="coldf_fluid_pump", group=Group.DEVICE_VALUES)
+    DEVICE_VALUES_COLD_FLUID_PUMP = Identifier(id="cold_fluid_pump", group=Group.DEVICE_VALUES)
     DEVICE_VALUES_COMPRESSOR = Identifier(id="compressor", group=Group.DEVICE_VALUES)
-    DEVICE_VALUES_ADDITIONAL_HEAT_3KW = Identifier(id="additional_heat_3kW", group=Group.DEVICE_VALUES)
-    DEVICE_VALUES_ADDITIONAL_HEAT_6KW = Identifier(id="additional_heat_6kW", group=Group.DEVICE_VALUES)
+    DEVICE_VALUES_ADDITIONAL_HEAT_3KW = Identifier(id="additional_heat_3kw", group=Group.DEVICE_VALUES)
+    DEVICE_VALUES_ADDITIONAL_HEAT_6KW = Identifier(id="additional_heat_6kw", group=Group.DEVICE_VALUES)
     DEVICE_VALUES_RADIATOR_PUMP = Identifier(id="radiator_pump", group=Group.DEVICE_VALUES)
     DEVICE_VALUES_HEATFLUID_PUMP = Identifier(id="heat_fluid_pump", group=Group.DEVICE_VALUES)
     DEVICE_VALUES_SWITCH_VALVE = Identifier(id="switch_valve", group=Group.DEVICE_VALUES)
