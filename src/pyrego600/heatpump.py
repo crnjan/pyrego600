@@ -24,9 +24,9 @@ class HeatPump:
         self.__lock = asyncio.Lock()
 
     @classmethod
-    def connect(url: str) -> Self:
+    def connect(cls, url: str) -> Self:
         connection = SerialConnection(url)
-        return HeatPump(connection)
+        return cls(connection)
 
     @property
     def registers(self) -> list[Register]:
