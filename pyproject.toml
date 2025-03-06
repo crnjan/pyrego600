@@ -1,6 +1,6 @@
 [project]
 name = "pyrego600"
-version = "0.0.3"
+version = "0.0.4"
 authors = [
   { name="Boris Krivonog", email="boris.krivonog@inova.si" },
 ]

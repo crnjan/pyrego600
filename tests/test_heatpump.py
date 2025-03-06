@@ -4,19 +4,18 @@ from unittest.mock import PropertyMock, call
 
 import pytest
 
-from pyrego600 import HeatPump
+from pyrego600 import HeatPump, RegoError
 from pyrego600.connection import Connection
 from pyrego600.identifiers import Identifiers
 from pyrego600.register_factory import RegisterFactory
-from pyrego600.regoerror import RegoError
 
-_REGISTER = RegisterFactory.systemTemperature(Identifiers.SENSOR_VALUES_INDOOR, 0x020D)
+_REGISTER = RegisterFactory.system_temperature(Identifiers.SENSOR_VALUES_INDOOR, 0x020D)
 
 
 @pytest.mark.asyncio
 async def test_connect_fails():
     connection = mock.create_autospec(Connection)
-    type(connection).isConnected = PropertyMock(return_value=False)
+    type(connection).is_connected = PropertyMock(return_value=False)
     connection.connect.side_effect = OSError
     hp = HeatPump(connection)
     with pytest.raises(OSError):
@@ -28,7 +27,7 @@ async def test_connect_fails():
 @pytest.mark.parametrize("readReturnValue", [b"\xca\xfe\xba\xbe", b"\x01\x00\x00\x00\x00", b""])
 async def test_verify_fails(readReturnValue):
     connection = mock.create_autospec(Connection)
-    type(connection).isConnected = PropertyMock(return_value=False)
+    type(connection).is_connected = PropertyMock(return_value=False)
     connection.read.return_value = readReturnValue
     hp = HeatPump(connection)
     with pytest.raises(RegoError):
@@ -40,7 +39,7 @@ async def test_verify_fails(readReturnValue):
 @pytest.mark.asyncio
 async def test_verify():
     connection = mock.create_autospec(Connection)
-    type(connection).isConnected = PropertyMock(return_value=False)
+    type(connection).is_connected = PropertyMock(return_value=False)
     connection.read.return_value = b"\x01\x00\x04\x58\x5c"
     hp = HeatPump(connection)
     await hp.verify()
@@ -57,7 +56,7 @@ async def test_waiting_for_response_should_timeout():
         await asyncio.sleep(5)
 
     connection = mock.create_autospec(Connection)
-    type(connection).isConnected = PropertyMock(return_value=False)
+    type(connection).is_connected = PropertyMock(return_value=False)
     connection.read.side_effect = looongRead
     hp = HeatPump(connection)
     with pytest.raises(TimeoutError):
@@ -75,7 +74,7 @@ async def test_waiting_for_response_should_timeout_and_retry():
             return b"\x01\x00\x00\x09\x09"
         await asyncio.sleep(5)
 
-    type(connection).isConnected = PropertyMock(return_value=False)
+    type(connection).is_connected = PropertyMock(return_value=False)
     connection.read.side_effect = read
     hp = HeatPump(connection)
     assert await hp.read(_REGISTER, retry=1) == 0.9
@@ -86,7 +85,7 @@ async def test_waiting_for_response_should_timeout_and_retry():
 @pytest.mark.asyncio
 async def test_read():
     connection = mock.create_autospec(Connection)
-    type(connection).isConnected = PropertyMock(side_effect=lambda: len(connection.connect.mock_calls) > 0)
+    type(connection).is_connected = PropertyMock(side_effect=lambda: len(connection.connect.mock_calls) > 0)
     connection.read.side_effect = [
         b"\x01\x00\x00\x08\x08",
         b"\x01\x00\x00\x0a\x0a",
@@ -109,7 +108,7 @@ async def test_read():
 @pytest.mark.asyncio
 async def test_write():
     connection = mock.create_autospec(Connection)
-    type(connection).isConnected = PropertyMock(return_value=True)
+    type(connection).is_connected = PropertyMock(return_value=True)
     connection.read.return_value = b"\x01"
     hp = HeatPump(connection)
     await hp.write(_REGISTER, 1.2)

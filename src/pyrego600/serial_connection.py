@@ -10,7 +10,7 @@ class SerialConnection(Connection):
         self.__writter = None
 
     @property
-    def isConnected(self) -> bool:
+    def is_connected(self) -> bool:
         return self.__reader is not None
 
     async def connect(self) -> None:

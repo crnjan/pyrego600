@@ -1,9 +1,11 @@
 from abc import ABC
 
+from ..last_error import LastError
+
 
 class Transformation(ABC):
-    def toValue(self, value: float) -> float:
+    def to_value(self, value: int | LastError | None) -> int | LastError | None:
         raise NotImplementedError
 
-    def fromValue(self, value: float) -> float:
+    def from_value(self, value: float) -> int:
         raise NotImplementedError

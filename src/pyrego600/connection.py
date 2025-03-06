@@ -3,7 +3,7 @@ from abc import ABC
 
 class Connection(ABC):
     @property
-    def isConnected(self) -> bool:
+    def is_connected(self) -> bool:
         raise NotImplementedError
 
     async def connect(self) -> None:

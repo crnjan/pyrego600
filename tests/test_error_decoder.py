@@ -1,3 +1,4 @@
+import datetime
 import pytest
 
 from pyrego600.decoders import Decoders
@@ -39,7 +40,9 @@ def test_decode_no_error():
 
 
 def test_decode_value():
-    assert Decoders.ERROR.decode(
+    last_error = Decoders.ERROR.decode(
         b"\x01\x00\x0b\x03\x02\x03\x05\x03\x00\x03\x01\x03\x02\x03\x08\x02\x00\x03\x00\x03\x05\x03\x0a\x03\x01\x03"
         + b"\x01\x03\x0a\x03\x05\x03\x02\x00\x00\x02\x01\x0b\x02\x01\x07\x0b",
-    ) == (11, "250128 05:11:52")
+    )
+    assert last_error.code == 11
+    assert last_error.timestamp == datetime.datetime(2025, 1, 28, 5, 11, 52)

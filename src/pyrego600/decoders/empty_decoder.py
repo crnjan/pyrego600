@@ -6,5 +6,5 @@ class EmptyDecoder(AbstractDecoder):
     def length(self) -> int:
         return 1
 
-    def _convert(self, buffer: bytes) -> int | float:
+    def _convert(self, buffer: bytes) -> int:
         return 0

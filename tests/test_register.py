@@ -16,7 +16,7 @@ def verify_read(
     command = register._read()
     assert command.payload == expectedPayload
     assert command.decoder.decode(responseBytes) == expectedDecodedValue
-    assert command.transformation.toValue(expectedDecodedValue) == expectedValue
+    assert command.transformation.to_value(expectedDecodedValue) == expectedValue
     return register
 
 
@@ -68,12 +68,12 @@ def test_settings_heat_curve():
         expectedDecodedValue=27,
         expectedValue=2.7,
     )
-    assert register.transformation.fromValue(2.7) == 27
+    assert register.transformation.from_value(2.7) == 27
     command = register._write(27)
     assert command.payload == b"\x81\x03\x00\x00\x00\x00\x00\x1b\x1b"
     assert command.decoder.decode(b"\x01") == 0
-    assert command.transformation.toValue(0) == 0
-    assert str(register.identifier) == "settings.heat_curve"
+    assert command.transformation.to_value(0) == 0
+    assert str(register.identifier) == "settings-heat_curve"
     assert register.is_writtable
 
 

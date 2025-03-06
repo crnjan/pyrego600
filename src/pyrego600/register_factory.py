@@ -19,7 +19,7 @@ class RegisterFactory:
         )
 
     @staticmethod
-    def lastError(identifier: Identifier) -> Register:
+    def last_error(identifier: Identifier) -> Register:
         return Register(
             identifier=identifier,
             source=Sources.LAST_ERROR,
@@ -30,7 +30,7 @@ class RegisterFactory:
         )
 
     @staticmethod
-    def frontPanelSwitch(identifier: Identifier, address: int) -> Register:
+    def front_panel_switch(identifier: Identifier, address: int) -> Register:
         return Register(
             identifier=identifier,
             source=Sources.FRONT_PANEL,
@@ -41,7 +41,7 @@ class RegisterFactory:
         )
 
     @staticmethod
-    def systemTemperature(identifier: Identifier, address: int, is_writtable: bool = False) -> Register:
+    def system_temperature(identifier: Identifier, address: int, is_writtable: bool = False) -> Register:
         return Register(
             identifier=identifier,
             source=Sources.SYSTEM,
@@ -53,7 +53,7 @@ class RegisterFactory:
         )
 
     @staticmethod
-    def systemUnitless(identifier: Identifier, address: int, is_writtable: bool = False) -> Register:
+    def system_unitless(identifier: Identifier, address: int, is_writtable: bool = False) -> Register:
         return Register(
             identifier=identifier,
             source=Sources.SYSTEM,
@@ -65,7 +65,7 @@ class RegisterFactory:
         )
 
     @staticmethod
-    def systemSwitch(identifier: Identifier, address: int) -> Register:
+    def system_switch(identifier: Identifier, address: int) -> Register:
         return Register(
             identifier=identifier,
             source=Sources.SYSTEM,
@@ -76,7 +76,7 @@ class RegisterFactory:
         )
 
     @staticmethod
-    def systemHours(identifier: Identifier, address: int) -> Register:
+    def system_hours(identifier: Identifier, address: int) -> Register:
         return Register(
             identifier=identifier,
             source=Sources.SYSTEM,

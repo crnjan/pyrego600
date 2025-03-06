@@ -7,11 +7,11 @@ from .transformation import Transformation
 class NumericTransformation(Transformation):
     multiplier: float
 
-    def toValue(self, value: float) -> float:
+    def to_value(self, value: int) -> float:
         # This value marks "absence" of a sensor
         if value == -483:
             return None
         return round(value * self.multiplier * 1 / self.multiplier) / (1 / self.multiplier)
 
-    def fromValue(self, value: float) -> float:
-        return value / self.multiplier
+    def from_value(self, value: float) -> int:
+        return round(value / self.multiplier)

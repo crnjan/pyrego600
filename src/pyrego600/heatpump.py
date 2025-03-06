@@ -2,13 +2,16 @@
 
 import asyncio
 import logging
+
 from asyncio import timeout as asyncio_timeout
+from typing import Self
 
 from .connection import Connection
 from .decoders import Decoder
 from .register import Register
 from .register_repository import RegisterRepository
 from .regoerror import RegoError
+from .serial_connection import SerialConnection
 from .transformations import Transformation
 
 _LOGGER = logging.getLogger(__name__)
@@ -20,10 +23,20 @@ class HeatPump:
         self.__connection = connection
         self.__lock = asyncio.Lock()
 
+    @classmethod
+    def connect(url: str) -> Self:
+        connection = SerialConnection(url)
+        return HeatPump(connection)
+
     @property
     def registers(self) -> list[Register]:
         """Return the register database."""
         return RegisterRepository.registers()
+
+    @property
+    def last_error(self) -> Register:
+        """Return the last error register."""
+        return RegisterRepository.last_error()
 
     async def dispose(self):
         await self.__connection.close()
@@ -43,13 +56,13 @@ class HeatPump:
             return await self.__send(*register._read(), retry)
 
     async def write(self, register: Register, value: float, retry: int = _RETRIES) -> None:
-        transformed = register.transformation.fromValue(value)
+        transformed = register.transformation.from_value(value)
         async with self.__lock:
-            return await self.__send(*register._write(round(transformed)), retry)
+            return await self.__send(*register._write(transformed), retry)
 
     async def __send(self, payload: bytes, decoder: Decoder, transformation: Transformation, retry: int) -> float:
         try:
-            if not self.__connection.isConnected:
+            if not self.__connection.is_connected:
                 _LOGGER.debug("Not connected, connecting...")
                 await self.__connection.connect()
                 _LOGGER.debug("Connected")
@@ -64,7 +77,7 @@ class HeatPump:
                 _LOGGER.debug("Send, waiting for response...")
                 response = await self.__connection.read(decoder.length)
                 _LOGGER.debug("Received %s", response.hex())
-            return transformation.toValue(decoder.decode(response))
+            return transformation.to_value(decoder.decode(response))
 
         except (OSError, RegoError) as e:
             _LOGGER.debug("Sending '%s' failed due %s", payload.hex(), repr({e}))

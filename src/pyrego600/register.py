@@ -7,7 +7,7 @@ from .identifier import Identifier
 from .source import Source
 from .transformations import Transformation, Transformations
 from .type import Type
-from .value_converter import int16ToSevenBitFormat
+from .value_converter import int16_to_seven_bit_format
 
 
 @dataclass(frozen=True)
@@ -34,5 +34,5 @@ class Register:
         return Register.Command(self.__payload(self.source.write, data), Decoders.EMPTY, Transformations.IDENTITY)
 
     def __payload(self, source: int, data: int) -> bytes:
-        payloadBytes = int16ToSevenBitFormat(self.address) + int16ToSevenBitFormat(data)
-        return b"\x81" + source.to_bytes() + payloadBytes + checksum(payloadBytes).to_bytes()
+        payload_bytes = int16_to_seven_bit_format(self.address) + int16_to_seven_bit_format(data)
+        return b"\x81" + source.to_bytes() + payload_bytes + checksum(payload_bytes).to_bytes()
