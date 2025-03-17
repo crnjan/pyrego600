@@ -9,12 +9,10 @@ class RegisterRepository:
         return RegisterFactory.version(identifier=Identifiers.VERSION)
 
     @staticmethod
-    def last_error() -> Register:
-        return RegisterFactory.last_error(identifier=Identifiers.LAST_ERROR)
-
-    @staticmethod
     def registers() -> list[Register]:
         return [
+            # Last error
+            RegisterFactory.last_error(identifier=Identifiers.LAST_ERROR),
             # Front Panel
             RegisterFactory.front_panel_switch(
                 identifier=Identifiers.FRONT_PANEL_POWER_LAMP,

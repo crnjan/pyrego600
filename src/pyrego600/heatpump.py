@@ -33,11 +33,6 @@ class HeatPump:
         """Return the register database."""
         return RegisterRepository.registers()
 
-    @property
-    def last_error(self) -> Register:
-        """Return the last error register."""
-        return RegisterRepository.last_error()
-
     async def dispose(self):
         await self.__connection.close()
 

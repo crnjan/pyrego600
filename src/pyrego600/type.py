@@ -6,3 +6,4 @@ class Type(Enum):
     SWITCH = auto()
     HOURS = auto()
     UNITLESS = auto()
+    ERROR = auto()

@@ -26,7 +26,7 @@ class RegisterFactory:
             address=0x0000,
             decoder=Decoders.ERROR,
             transformation=Transformations.IDENTITY,
-            type=None,
+            type=Type.ERROR,
         )
 
     @staticmethod
